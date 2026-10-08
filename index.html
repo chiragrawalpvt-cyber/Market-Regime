@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Market Regime</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f5f9;--bg2:#e9eef7;--card:#ffffff;--ink:#141a24;--mut:#667085;--line:#e3e8ef;--g:#12a05c;--y:#d9890b;--r:#d6453a;--a:#2f6fed;--sh:0 1px 2px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.06);--inp:#f7f9fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0e16;--bg2:#101726;--card:#121826;--ink:#e8edf6;--mut:#8b97ab;--line:#222c3f;--a:#6aa0ff;--g:#2ecb83;--y:#f0a63a;--r:#f0645a;--sh:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px rgba(0,0,0,.35);--inp:#0e1421}}
+:root[data-theme="dark"]{--bg:#0a0e16;--bg2:#101726;--card:#121826;--ink:#e8edf6;--mut:#8b97ab;--line:#222c3f;--a:#6aa0ff;--g:#2ecb83;--y:#f0a63a;--r:#f0645a;--sh:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px rgba(0,0,0,.35);--inp:#0e1421}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+*{box-sizing:border-box}
+body{margin:0 auto;background:radial-gradient(1000px 420px at 12% -8%,var(--bg2),transparent 70%),var(--bg);color:var(--ink);font:14.5px/1.55 Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:20px 16px 40px;max-width:940px;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:4px 0 14px;display:flex;align-items:center;gap:10px}
+h1::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--g);box-shadow:0 0 0 4px rgba(46,203,131,.18),0 0 14px var(--g)}
+h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}
+h3{color:var(--ink)}
+.c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0;box-shadow:var(--sh)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+label{font-size:11.5px;font-weight:600;color:var(--mut);display:block;margin-bottom:4px}
+input,select,button,textarea{font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--inp);color:var(--ink);width:100%;transition:border-color .15s,box-shadow .15s,transform .05s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 22%,transparent)}
+input[readonly]{background:transparent;border-style:dashed;color:var(--a);font-weight:700;font-variant-numeric:tabular-nums}
+button{background:var(--a);color:#fff;border:0;cursor:pointer;width:auto;padding:9px 18px;font-weight:600;border-radius:10px;box-shadow:0 4px 14px color-mix(in srgb,var(--a) 35%,transparent)}
+button:hover{filter:brightness(1.08)}button:active{transform:translateY(1px)}
+button.s{background:transparent;color:var(--mut);border:1px solid var(--line);padding:4px 10px;font-size:12px;box-shadow:none;border-radius:8px}
+button.s:hover{color:var(--ink);border-color:var(--mut)}
+details summary{cursor:pointer;color:var(--a);font-weight:600}
+.big{font-size:32px;font-weight:800;letter-spacing:.04em;padding:8px 22px;border-radius:12px;color:#fff;display:inline-block}
+.big.BULL{background:linear-gradient(135deg,#12a05c,#2ecb83);box-shadow:0 6px 28px rgba(46,203,131,.38)}
+.big.NEUTRAL{background:linear-gradient(135deg,#d9890b,#f0a63a);box-shadow:0 6px 28px rgba(240,166,58,.38)}
+.big.BEAR{background:linear-gradient(135deg,#d6453a,#f0645a);box-shadow:0 6px 28px rgba(240,100,90,.4)}
+.BULL{background:var(--g)}.NEUTRAL{background:var(--y)}.BEAR{background:var(--r)}
+.m{color:var(--mut);font-size:12.5px}
+.w,.e{padding:10px 14px;border-radius:10px;margin:10px 0;font-size:13.5px;border:1px solid transparent}
+.w{background:color-mix(in srgb,var(--y) 12%,transparent);border-color:color-mix(in srgb,var(--y) 35%,transparent)}
+.e{background:color-mix(in srgb,var(--r) 12%,transparent);border-color:color-mix(in srgb,var(--r) 35%,transparent)}
+.t{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{background:var(--inp);color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+th,td{border-bottom:1px solid var(--line);border-right:0;padding:7px 10px;text-align:left;white-space:nowrap}
+tr:last-child td{border-bottom:0}tbody tr:hover td,table tr:hover td{background:color-mix(in srgb,var(--a) 5%,transparent)}
+.ok{color:var(--g);font-weight:700}.no{color:var(--r);font-weight:700}.inf{color:var(--a)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kv div{background:var(--inp);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:11.5px;color:var(--mut);font-weight:600}
+.kv b{display:block;font-size:19px;color:var(--ink);font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.pill{padding:2px 10px;border-radius:999px;color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em}
+svg text{font-family:inherit}
+</style></head><body>
+<h1>Market Regime</h1>
+
+<div class="c"><h2>Log today (after close)</h2>
+<div class="g">
+<div><label>Date</label><input type="date" id="d"></div>
+<div><label>Nifty 50 close</label><input type="number" step="any" id="n"></div>
+<div><label>Nifty 200 DMA</label><input type="number" step="any" id="m"></div>
+<div><label>200 DMA ~1 month ago</label><input type="number" step="any" id="m1"></div>
+<div><label>Chartink count (Nifty 500, close &gt; SMA50), 0–500</label><input type="number" step="1" id="b"></div>
+<div><label>Calculated breadth % (count ÷ 500 × 100)</label><input id="bp" readonly value="—"></div>
+<div><label>Calculated 200 DMA slope %</label><input id="sl" readonly value="—"></div>
+<div><label>India VIX at 4.30pm</label><input type="number" step="any" id="vx"></div>
+
+</div>
+<details style="margin-top:8px"><summary class="m" style="cursor:pointer">Sector-wise daily performance % (NSE sector indices, optional)</summary><div class="g" id="sg" style="margin-top:8px"></div></details>
+<div id="val"></div>
+<p><button onclick="add()">Save entry</button> <span id="msg" class="m"></span></p></div>
+
+<div id="st"></div>
+<div class="c" id="res"></div>
+
+<div class="c"><h2>Trend · day by day</h2><div id="ch"></div></div>
+
+<div class="c"><h2>Log</h2>
+<div class="g" style="margin-bottom:10px"><div><label>Filter regime</label><select id="fr" onchange="draw()"><option>All</option><option>BULL</option><option>NEUTRAL</option><option>BEAR</option></select></div><div><label>From date</label><input type="date" id="fd" onchange="draw()"></div><div><label>Sort by date</label><select id="so" onchange="draw()"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></div></div><div class="t"><table id="tb"></table></div>
+<p><button class="s" onclick="exp()">Copy JSON</button> <button class="s" onclick="imp()">Import JSON</button> <button class="s" onclick="if(confirm('Delete all?')){L=[];PB={};sv();draw()}">Clear</button></p>
+<textarea id="io" rows="3" placeholder="Paste JSON here to import, then press Import JSON again" style="display:none"></textarea>
+<div class="m">Storage is per-browser. Copy JSON periodically as backup.</div></div>
+
+<script>
+
+function breadthPct(c){return c/500*100}
+function slopePct(m,m1){return (m/m1-1)*100}
+function evalDay(prevSt,r){
+ const b=breadthPct(r.c),slope=slopePct(r.m,r.m1),above=r.n>r.m,rising=slope>0,we=!!r.we;
+ const bull=above&&rising&&b>=55,entryOK=we&&!above&&b<40,exitOK=we&&above&&b>=50;
+ let st,ev;
+ if(prevSt==='BEAR'){if(exitOK){st='NEUTRAL';ev='BEAR_EXIT'}else{st='BEAR';ev='BEAR_ACTIVE'}}
+ else if(entryOK){st='BEAR';ev='BEAR_ENTRY'}
+ else{st=bull?'BULL':'NEUTRAL';ev=''}
+ return {b,slope,above,rising,we,bull,entryOK,exitOK,st,ev,prevSt};
+}
+
+const K='cr7_regime_v1',KP='cr7_postbear_v1';let L=[],PB={},A=[];
+try{L=JSON.parse(localStorage.getItem(K)||'[]');PB=JSON.parse(localStorage.getItem(KP)||'{}')}catch(e){}
+L=L.map(r=>r.c==null&&r.b!=null?{...r,c:r.b}:r);
+const $=i=>document.getElementById(i);
+const SEC=['Bank','Fin Services','IT','Auto','FMCG','Pharma','Metal','Realty','Energy','Oil & Gas','Media','PSU Bank','Cons Durables','Healthcare','Infra'];
+const esc=t=>t.replace(/&/g,'&amp;');
+$('sg').innerHTML=SEC.map((n,i)=>`<div><label>${esc(n)} %</label><input type="number" step="any" id="s${i}"></div>`).join('');
+L=L.map(({nt,...r})=>r);
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(L));localStorage.setItem(KP,JSON.stringify(PB))}catch(e){}};
+const num=v=>v===''||v==null?NaN:Number(v);
+const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(new Date(s+'T00:00:00'));
+const isWE=r=>r.wk==='1'||(r.wk==='auto'&&new Date(r.d+'T00:00:00').getDay()===5);
+const ck=(v,t)=>`<div><span class="${v?'ok':'no'}">${v?'✓':'✗'}</span> ${t}</div>`;
+const info=t=>`<div><span class="inf">ℹ</span> ${t}</div>`;
+$('d').value=new Date().toISOString().slice(0,10);
+
+// Chain evaluation: deterministic function of the sorted inputs only (+ PB trade counter for display status)
+function run(){
+ const mm=new Map();L.forEach(r=>mm.set(r.d,r));A.forEach(r=>mm.set(r.d,r));const s=[...mm.values()].sort((a,b)=>a.d<b.d?-1:1);let prev=null,lastExit=null;
+ return s.map(r=>{
+  const o=evalDay(prev?prev.st:null,{n:r.n,m:r.m,m1:r.m1,c:r.c,we:isWE(r)});
+  if(o.ev==='BEAR_EXIT')lastExit=r.d;
+  let status;
+  if(o.ev==='BEAR_EXIT')status='Bear exit confirmed — first 3 trades at half risk';
+  else if(o.ev==='BEAR_ACTIVE')status='Bear exit pending';
+  else if(!prev||prev.st!==o.st)status='New regime';
+  else status='Continuing same regime';
+  if(lastExit&&o.st!=='BEAR'&&o.ev!=='BEAR_EXIT'&&(PB[lastExit]||0)<3)status='First 3 trades after Bear exit';
+  const row={...r,c:r.c,breadth:o.b,slope:o.slope,regime:o.st,event:o.ev,prevRegime:prev?prev.st:null,weekEnd:o.we,status,lastExit,_o:o};
+  prev=row;return row;
+ });
+}
+function persist(){const R=run(),by=new Map(R.map(r=>[r.d,r]));L=L.map(r=>{const c=by.get(r.d);return c&&!c.auto?(({_o,lastExit,...x})=>x)(c):r});sv();}
+
+function readForm(){
+ const r={d:$('d').value,n:num($('n').value),m:num($('m').value),m1:num($('m1').value),c:num($('b').value),vix:$('vx').value===''?null:num($('vx').value),sec:{},wk:'auto'};
+ const e=[];
+ SEC.forEach((n,i)=>{const v=$('s'+i).value;if(v!==''){const x=Number(v);if(!Number.isFinite(x)||Math.abs(x)>30)e.push(n+' % must be a number between -30 and 30.');else r.sec[n]=x}});
+ if(r.vix!==null&&!(r.vix>0&&r.vix<150))e.push('India VIX must be a positive number (or leave blank).');
+ if(!validDate(r.d))e.push('Date is missing or invalid.');
+ if(!(r.n>0))e.push('Nifty 50 close is missing or invalid.');
+ if(!(r.m>0))e.push('Nifty 200 DMA is missing or invalid.');
+ if(!(r.m1>0))e.push('200 DMA ~1 month ago is missing or invalid.');
+ if(!(r.c>=0&&r.c<=500)||!Number.isFinite(r.c))e.push('Chartink count is missing or outside 0–500.');
+ return {r,e};
+}
+function live(){
+ const {r}=readForm();
+ $('bp').value=(r.c>=0&&r.c<=500)?breadthPct(r.c).toFixed(1)+'%':'—';
+ $('sl').value=(r.m>0&&r.m1>0)?(slopePct(r.m,r.m1)>=0?'+':'')+slopePct(r.m,r.m1).toFixed(2)+'%':'—';
+}
+['n','m','m1','b','d'].forEach(i=>$(i).addEventListener('input',live));
+function add(){
+ const {r,e}=readForm();
+ if(e.length){$('val').innerHTML='<div class="e">'+e.map(x=>'✗ '+x).join('<br>')+'</div>';$('msg').textContent='Not saved.';return}
+ $('val').innerHTML='';
+ L=L.filter(x=>x.d!==r.d);L.push(r);persist();$('msg').textContent='Saved.';draw();
+}
+function prefill(){
+ const t=new Date($('d').value+'T00:00:00');if(isNaN(t))return;t.setDate(t.getDate()-30);
+ const c=[...L].filter(x=>x.d<=t.toISOString().slice(0,10)).sort((a,b)=>a.d<b.d?1:-1)[0];
+ if(c&&!$('m1').value){$('m1').value=c.m;live()}
+}
+$('d').addEventListener('change',prefill);
+
+function explain(x){
+ const o=x._o,h=[];
+ h.push('<b>Decision audit</b>');
+ if(x.prevRegime==='BEAR'){
+  h.push(`<div class="${o.ev==='BEAR_EXIT'?'ok':'no'}"><b>${o.ev==='BEAR_EXIT'?'BEAR EXIT CONFIRMED → NEUTRAL':'BEAR ACTIVE — waiting for Friday/week-end exit confirmation'}</b></div>`);
+  h.push(info('Bear exit requires ALL of: (1) week-end close, (2) Nifty 50 close &gt; 200 DMA, (3) breadth ≥ 50%. Intermediate days cannot exit Bear.'));
+  h.push(ck(o.we,'Week-end decision session'));
+  h.push(ck(o.above,`Nifty ${x.n} ${o.above?'above':'not above'} 200 DMA ${x.m}`));
+  h.push(ck(o.b>=50,`Breadth ${o.b.toFixed(1)}% ${o.b>=50?'≥':'<'} 50%`));
+  if(o.ev==='BEAR_EXIT')h.push(info('Exit day is recorded as NEUTRAL. First 3 trades after exit use Neutral/half risk.'));
+ }else{
+  h.push('<i>Bull test</i>');
+  h.push(ck(o.above,`Nifty ${x.n} ${o.above?'above':'below/at'} 200 DMA ${x.m}`));
+  h.push(ck(o.rising,`200 DMA ${o.rising?'rising':'not rising'} (${o.slope.toFixed(2)}% vs ~1 month ago)`));
+  h.push(ck(o.b>=55,`Breadth ${o.b.toFixed(1)}% ${o.b>=55?'≥':'below'} 55%`));
+  h.push('<i>Bear-entry test</i>');
+  h.push(ck(o.we,'Week-end decision session'));
+  h.push(ck(!o.above,`Nifty ${o.above?'above':'below'} 200 DMA`));
+  h.push(ck(o.b<40,`Breadth ${o.b.toFixed(1)}% ${o.b<40?'<':'≥'} 40%`));
+  if(o.ev==='BEAR_ENTRY')h.push(info('All three Bear-entry conditions met → BEAR.'));
+  else if(!o.we&&!o.above&&o.b<40)h.push(info('Bear entry not triggered because it is not the required week-end decision.'));
+  else h.push(info(o.st==='BULL'?'Bull conditions all met; Bear entry not triggered.':'Not Bull and Bear entry not triggered → NEUTRAL (everything else).'));
+ }
+ return h.join('');
+}
+
+
+const PAL=['#e6194b','#3cb44b','#4363d8','#f58231','#911eb4','#2aa5a5','#f032e6','#9a6324','#808000','#000075','#e08a00','#469990','#800000','#aaa','#1b6'];
+function line(series,labels,h){
+ const W=800,H=h||200,pl=40,pr=8,pt=8,pb=20,all=series.flatMap(x=>x.pts).filter(v=>v!=null);
+ if(!all.length)return '<div class="m">No data yet.</div>';
+ let lo=Math.min(...all),hi=Math.max(...all);if(lo===hi){lo-=1;hi+=1}
+ const X=i=>pl+(labels.length<2?(W-pl-pr)/2:i*(W-pl-pr)/(labels.length-1)),Y=v=>pt+(hi-v)*(H-pt-pb)/(hi-lo);
+ let g=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img">`;
+ [lo,(lo+hi)/2,hi].forEach(v=>{g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl-4}" y="${Y(v)+4}" font-size="11" text-anchor="end" fill="var(--mut)">${v.toFixed(1)}</text>`});
+ if(lo<0&&hi>0)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--mut)" stroke-dasharray="4 3"/>`;
+ g+=`<text x="${pl}" y="${H-5}" font-size="11" fill="var(--mut)">${labels[0]}</text><text x="${W-pr}" y="${H-5}" font-size="11" text-anchor="end" fill="var(--mut)">${labels[labels.length-1]}</text>`;
+ series.forEach(sr=>{const seg=sr.pts.map((v,i)=>v==null?null:X(i)+','+Y(v)).filter(Boolean);
+  if(seg.length>1)g+=`<polyline fill="none" stroke="${sr.color}" stroke-width="2" points="${seg.join(' ')}"><title>${esc(sr.name)}</title></polyline>`;
+  else if(seg.length===1){const [a,b]=seg[0].split(',');g+=`<circle cx="${a}" cy="${b}" r="3" fill="${sr.color}"><title>${esc(sr.name)}</title></circle>`}});
+ return g+'</svg>';
+}
+let CS='All';
+function charts(R){
+ const D=R.slice(-30),lb=D.map(r=>r.d.slice(5));
+ let h='<h3 style="font-size:14px;margin:4px 0">India VIX</h3>'+line([{name:'India VIX',color:'#e08a00',pts:D.map(r=>r.vix==null?null:r.vix)}],lb);
+ const cum=n=>{let c=1;return D.map(r=>{const v=r.sec&&r.sec[n];if(v==null&&!(r.sec&&Object.keys(r.sec).length))return null;c*=1+(v||0)/100;return (c-1)*100})};
+ const ss=SEC.map((n,i)=>({name:n,color:PAL[i%PAL.length],pts:cum(n)})).filter(x=>CS==='All'||x.name===CS);
+ h+=`<h3 style="font-size:14px;margin:12px 0 4px">Cumulative sector % (compounded daily %, last 30 sessions) <select id="cs" style="width:auto;padding:2px" onchange="CS=this.value;draw()"><option>All</option>${SEC.map(n=>`<option ${CS===n?'selected':''}>${esc(n)}</option>`).join('')}</select></h3>`+line(ss,lb,240);
+ h+='<div class="m" style="margin-top:4px">'+ss.map(x=>`<span style="color:${x.color}">■</span> ${esc(x.name)}`).join(' &nbsp; ')+'</div>';
+ const H=R.slice(-20);
+ h+='<h3 style="font-size:14px;margin:12px 0 4px">Daily sector % heatmap (last 20 sessions)</h3><div class="t"><table><tr><th>Sector</th>'+H.map(r=>`<th>${r.d.slice(5)}</th>`).join('')+'</tr>'+SEC.map(n=>'<tr><td>'+esc(n)+'</td>'+H.map(r=>{const v=r.sec&&r.sec[n];if(v==null)return '<td class="m">–</td>';const a=Math.min(1,Math.abs(v)/3)*.75;return `<td style="background:${v>=0?`rgba(31,138,76,${a})`:`rgba(192,57,43,${a})`}">${v.toFixed(2)}</td>`}).join('')+'</tr>').join('')+'</table></div>';
+ h+='<div class="m">Missing sector value on a day is treated as 0% in the cumulative line. Sector data and VIX are context only; they never enter the regime decision.</div>';
+ $('ch').innerHTML=h;
+}
+function draw(){
+ const R=run(),x=R[R.length-1];
+ if(!x){$('res').innerHTML='<div class="m">No entries yet. Log your first close above.</div>';$('tb').innerHTML='';$('ch').innerHTML='<div class="m">No data yet.</div>';return}
+ const o=x._o,left=x.lastExit?Math.max(0,3-(PB[x.lastExit]||0)):0,post=left>0&&x.regime!=='BEAR';
+ const eff=post?'NEUTRAL':x.regime;
+ const act=eff==='BULL'?'Normal risk.':eff==='NEUTRAL'?'Half risk, half max positions, clearest setups only.':'No new positions. Let stops work. Cash is the position.';
+ const stale=(new Date()-new Date(x.d+'T00:00:00'))/864e5>4?'<div class="w">Latest entry is over 4 days old. Regime shown is stale.</div>':'';
+ const trk=post?`<div class="w">First 3 trades after Bear exit: <b>${left} of 3 remaining</b> at Neutral/half risk. <button class="s" onclick="PB['${x.lastExit}']=(PB['${x.lastExit}']||0)+1;persist();draw()">Trade taken +1</button> <button class="s" onclick="PB['${x.lastExit}']=Math.max(0,(PB['${x.lastExit}']||0)-1);persist();draw()">−1</button></div>`:'';
+ const bearBanner=x.regime==='BEAR'?'<div class="e"><b>BEAR ACTIVE — waiting for Friday/week-end exit confirmation</b></div>':'';
+ $('res').innerHTML=`<h2>Current market regime</h2><span class="big ${x.regime}">${x.regime}</span> <span class="m">as of ${x.d}${post?' · sizing treated as NEUTRAL (post-Bear)':''}</span>
+ ${bearBanner}
+ <div class="kv"><div>Nifty 50 close<b>${x.n}</b></div><div>200 DMA<b>${x.m}</b></div><div>200 DMA ~1 mo ago<b>${x.m1}</b></div><div>Breadth<b>${o.b.toFixed(1)}%</b><span class="m">${x.c}/500</span></div><div>200 DMA slope<b>${o.rising?'Rising':'Falling'} ${o.slope>=0?'+':''}${o.slope.toFixed(2)}%</b></div><div>Week-end decision<b>${o.we?'Eligible':'Not eligible'}</b><span class="m">${o.we?'Bear entry/exit may be decided':'Bear entry/exit not decidable today'}</span></div><div>India VIX<b>${x.vix==null?'—':x.vix}</b><span class="m">record only</span></div><div>Previous regime<b>${x.prevRegime||'— (first entry)'}</b></div><div>Status<b style="font-size:13px">${x.status}</b></div></div>
+ ${secRank(x)}${trk}<div>${explain(x)}</div>
+ <p class="m">${act}</p>${stale}`;
+ charts(R);
+ let days=R.filter(r=>($('fr').value==='All'||r.regime===$('fr').value)&&(!$('fd').value||r.d>=$('fd').value));
+ if($('so').value==='desc')days.reverse();
+ $('tb').innerHTML='<tr><th>Date</th><th>Nifty</th><th>200 DMA</th><th>DMA slope</th><th>Breadth</th><th>VIX</th><th>Regime</th><th>Src</th><th></th></tr>'+days.map(r=>`<tr><td>${r.d}</td><td>${r.n}</td><td>${r.m}</td><td>${r.slope>=0?'+':''}${r.slope.toFixed(2)}%</td><td>${r.breadth.toFixed(1)}%</td><td>${r.vix==null?'—':r.vix}</td><td><span class="pill ${r.regime}">${r.regime}</span></td><td>${r.auto?'auto':'manual'}</td><td>${r.auto?'':`<button class="s" onclick="L=L.filter(z=>z.d!=='${r.d}');persist();draw()">×</button>`}</td></tr>`).join('');
+}
+function exp(){const j=JSON.stringify({L,PB});navigator.clipboard.writeText(j).then(()=>$('msg').textContent='Copied.',()=>{$('io').style.display='block';$('io').value=j})}
+function imp(){const t=$('io');if(t.style.display==='none'){t.style.display='block';return}try{const o=JSON.parse(t.value);L=(o.L||[]).map(({nt,...r})=>r).filter(r=>validDate(r.d)&&r.n>0&&r.m>0&&r.m1>0&&r.c>=0&&r.c<=500);PB=o.PB||{};persist();draw();t.style.display='none'}catch(e){$('msg').textContent='Bad JSON.'}}
+
+const esc2=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function secRank(x){const e=Object.entries(x.sec||{}).sort((a,b)=>a[1]-b[1]);if(!e.length)return '';return `<h2 style="margin-top:14px">Today's sector performance · worst → best <span class="m" style="text-transform:none;letter-spacing:0">(context only)</span></h2><div style="display:flex;flex-wrap:wrap;gap:6px">`+e.map(([n,v])=>`<span class="pill" style="background:${v>=0?'var(--g)':'var(--r)'}">${esc(n)} ${v>=0?'+':''}${v.toFixed(2)}%</span>`).join('')+'</div>'}
+async function loadAuto(){
+ const b=$('st'),t='?t='+Date.now();
+ try{
+  const [r1,r2]=await Promise.all([fetch('data/records.json'+t,{cache:'no-store'}),fetch('data/status.json'+t,{cache:'no-store'})]);
+  if(!r1.ok)throw new Error('records.json HTTP '+r1.status);
+  const recs=await r1.json(),st=r2.ok?await r2.json():null;
+  A=recs.map(r=>({d:r.date,n:r.nifty_close,m:r.dma200,m1:r.dma200_1m,c:r.breadth_count,vix:r.india_vix,sec:r.sectors||{},wk:'auto',auto:true,srv:r.regime,warn:r.warnings||[]}));
+  const last=recs[recs.length-1],retry=' <button class="s" onclick="loadAuto()">Refresh / Retry</button>',w=last&&last.warnings&&last.warnings.length?'<br>Warnings: '+esc2(last.warnings.join('; ')):'';
+  if(st&&st.state==='failed')b.innerHTML=`<div class="e"><b>Data update failed</b> — ${esc2(st.message)} · ${esc2(st.last_run_ist)} IST. Previous record kept (${st.last_record_date||'none'}). Refresh only reloads stored data; re-run the job from GitHub → Actions → Run workflow.${retry}</div>`;
+  else if(st&&st.state==='no_data')b.innerHTML=`<div class="w">No record for ${esc2(st.target_date)} yet: ${esc2(st.message)} (checked ${esc2(st.last_run_ist)} IST). Latest stored: ${st.last_record_date||'none'}.${retry}</div>`;
+  else b.innerHTML=`<div class="w" style="background:transparent;border-color:var(--line)">Auto-update OK · latest stored record ${last?last.date:'none'}${st&&st.last_run_ist?' · last run '+esc2(st.last_run_ist)+' IST':''}.${w}${retry}</div>`;
+ }catch(e){A=[];b.innerHTML=`<div class="w">Auto data unavailable (${esc2(e.message)}). Manual mode only. <button class="s" onclick="loadAuto()">Refresh / Retry</button></div>`}
+ draw();
+}
+prefill();live();persist();draw();loadAuto();
+</script></body></html>
